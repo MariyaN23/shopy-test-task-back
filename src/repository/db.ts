@@ -41,6 +41,13 @@ export type HistoryType = {
 const mongoUri = "mongodb+srv://sellaite505:kdHZ0qno92Q7s5P2@shopy-test-task.in5tj.mongodb.net/?retryWrites=true&w=majority&appName=shopy-test-task"
 
 //export const client = new MongoClient(mongoUri)
+/*export const client = new MongoClient(mongoUri, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
+});*/
 export const client = new MongoClient(mongoUri)
 
 const db = client.db("Shopy")
