@@ -38,7 +38,7 @@ authRouter.post('/login',
         try {
             const result = await authService.login(req.body.username, req.body.password);
             if (typeof result === 'object' && 'userId' in result) {
-                res.cookie("token", result.token, { httpOnly: true, secure: true })
+                res.cookie("token", result.token, { httpOnly: false, secure: true,  path: "/", sameSite: "none" })
                 res.status(200).json({userId: result.userId, token: result.token})
             } else {
                 res.status(400).send({ message: `Login error ${result}` });
@@ -61,7 +61,7 @@ authRouter.get('/me',
 
 authRouter.delete('/logout', async (req: Request, res: Response) => {
     try {
-        res.clearCookie('token', { httpOnly: true, secure: true, path: '/' })
+        res.clearCookie('token', { httpOnly: true, secure: true, path: "/" })
         res.status(200).send({ message: 'Logout successfully' })
     } catch (error) {
         res.status(400).send({ message: `Error: ${error}` })
