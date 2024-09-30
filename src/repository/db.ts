@@ -1,4 +1,4 @@
-import {Collection, MongoClient} from "mongodb";
+import {Collection, MongoClient, ServerApiVersion} from "mongodb";
 
 export type UserType = {
     id: number
@@ -37,9 +37,17 @@ export type HistoryType = {
     itemsInHistory: ProductInHistoryType[]
 }
 
-const mongoUri = process.env.mongoURI || "mongodb://0.0.0.0:27017"
+//const mongoUri = process.env.mongoURI || "mongodb://0.0.0.0:27017"
+const mongoUri = "mongodb+srv://sellaite505:kdHZ0qno92Q7s5P2@shopy-test-task.in5tj.mongodb.net/?retryWrites=true&w=majority&appName=shopy-test-task"
 
-export const client = new MongoClient(mongoUri)
+//export const client = new MongoClient(mongoUri)
+export const client = new MongoClient(mongoUri, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
+});
 
 const db = client.db("Shopy")
 export const productsCollection: Collection<ProductType> = db.collection<ProductType>("products")

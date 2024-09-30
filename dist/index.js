@@ -28,7 +28,6 @@ exports.corsOptions = {
     origin: 'https://shopy-test-task.onrender.com',
     credentials: true,
 };
-app.set('trust proxy', 1);
 app.use((0, cors_1.default)(exports.corsOptions));
 app.use((0, cookie_parser_1.default)());
 const port = process.env.PORT || 5000;
