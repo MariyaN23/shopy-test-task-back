@@ -38,7 +38,13 @@ authRouter.post('/login',
         try {
             const result = await authService.login(req.body.username, req.body.password);
             if (typeof result === 'object' && 'userId' in result) {
-                res.cookie("token", result.token, { httpOnly: false, secure: true,  path: "/",  maxAge:60*60*3*100000, sameSite: "none" })
+                res.cookie("token", result.token, {
+                    httpOnly: false,
+                    path:"/",
+                    maxAge:60*60*3*100000,
+                    secure: true,
+                    sameSite: 'none',
+                })
                 res.status(200).json({userId: result.userId, token: result.token})
             } else {
                 res.status(400).send({ message: `Login error ${result}` });

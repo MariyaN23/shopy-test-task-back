@@ -37,7 +37,13 @@ exports.authRouter.post('/login', passwordValidation, usernameValidation, valida
     try {
         const result = yield auth_service_1.authService.login(req.body.username, req.body.password);
         if (typeof result === 'object' && 'userId' in result) {
-            res.cookie("token", result.token, { httpOnly: true, secure: true });
+            res.cookie("token", result.token, {
+                httpOnly: false,
+                path: "/",
+                maxAge: 60 * 60 * 3 * 100000,
+                secure: true,
+                sameSite: 'none',
+            });
             res.status(200).json({ userId: result.userId, token: result.token });
         }
         else {
@@ -59,7 +65,7 @@ exports.authRouter.get('/me', auth_middleware_1.authMiddleware, (req, res) => __
 }));
 exports.authRouter.delete('/logout', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.clearCookie('token', { httpOnly: true, secure: true });
+        res.clearCookie('token', { httpOnly: false, secure: true, path: "/", sameSite: "none" });
         res.status(200).send({ message: 'Logout successfully' });
     }
     catch (error) {

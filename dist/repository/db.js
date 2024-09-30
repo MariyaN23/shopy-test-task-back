@@ -14,13 +14,14 @@ const mongodb_1 = require("mongodb");
 //const mongoUri = process.env.mongoURI || "mongodb://0.0.0.0:27017"
 const mongoUri = "mongodb+srv://sellaite505:kdHZ0qno92Q7s5P2@shopy-test-task.in5tj.mongodb.net/?retryWrites=true&w=majority&appName=shopy-test-task";
 //export const client = new MongoClient(mongoUri)
-exports.client = new mongodb_1.MongoClient(mongoUri, {
+/*export const client = new MongoClient(mongoUri, {
     serverApi: {
-        version: mongodb_1.ServerApiVersion.v1,
+        version: ServerApiVersion.v1,
         strict: true,
         deprecationErrors: true,
     }
-});
+});*/
+exports.client = new mongodb_1.MongoClient(mongoUri);
 const db = exports.client.db("Shopy");
 exports.productsCollection = db.collection("products");
 exports.usersCollection = db.collection("users");
